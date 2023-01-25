@@ -10,8 +10,17 @@ async function getPlates(): Promise<plates[]> {
   return platesList;
 }
 
+async function getPlateById(id: number): Promise<plates> {
+  const plate = await platesRepository.findOne(id);
+
+  if (!plate) throw notFoundError();
+
+  return plate;
+}
+
 const platesServices = {
   getPlates,
+  getPlateById,
 };
 
 export default platesServices;

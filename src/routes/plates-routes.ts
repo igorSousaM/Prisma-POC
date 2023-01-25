@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { getPlatesList } from "../controllers/plates.controller.js";
+import {
+  getOnePlate,
+  getPlatesList,
+} from "../controllers/plates.controller.js";
 
 const platesRouter = Router();
 
-platesRouter.get('/plates',getPlatesList);
-
+platesRouter.get("/plates", getPlatesList);
+platesRouter.get("/plates/:id", getOnePlate);
 
 export default platesRouter;
