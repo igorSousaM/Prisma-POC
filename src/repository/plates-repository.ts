@@ -1,6 +1,7 @@
+import { plates } from "@prisma/client";
 import prisma from "../database/database.js";
 
-async function findMany() {
+async function findMany(): Promise<plates[]> {
   return prisma.plates.findMany();
 }
 

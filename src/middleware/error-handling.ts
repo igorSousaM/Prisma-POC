@@ -1,13 +1,15 @@
-export function notFoundError() {
+import { ErrorHandling } from "../protocols/index.js";
+
+export function notFoundError(): ErrorHandling {
 	return {
 		type: "error_not_found",
 		message: `Could not find any result!`
 	};
 } 
 
-export function unauthorizedError(){
+export function unauthorizedError(): ErrorHandling{
     return {
-      name: "unauthorized_error",
+      type: "unauthorized_error",
       message: "You must have authorization to continue",
     };
   }
