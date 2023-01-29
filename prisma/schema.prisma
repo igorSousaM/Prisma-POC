@@ -15,3 +15,10 @@ model plates {
   cookingTime Int
   type        String  @db.VarChar(50)
 }
+
+model clients {
+  id      Int     @id @default(autoincrement())
+  name    String? @db.VarChar(50)
+  phone   String? @db.VarChar(14)
+  address String? @db.VarChar(50)
+}

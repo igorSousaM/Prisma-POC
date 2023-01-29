@@ -10,3 +10,9 @@ export type PlateInput = {
   cookingTime: number;
   type: string;
 };
+
+export type ClientInput = {
+  name: string;
+  phone: string;
+  address: string;
+};
