@@ -8,17 +8,31 @@ datasource db {
 }
 
 model clients {
-  id      Int     @id @default(autoincrement())
-  name    String? @db.VarChar(50)
-  phone   String? @db.VarChar(14)
-  address String? @db.VarChar(50)
+  id      Int      @id @default(autoincrement())
+  name    String?  @db.VarChar(50)
+  phone   String?  @db.VarChar(14)
+  address String?  @db.VarChar(50)
+  orders  orders[]
 }
 
 model plates {
-  id          Int     @id @default(autoincrement())
-  name        String  @unique @db.VarChar(50)
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(50)
   price       Int
   description String?
   cookingTime Int
-  type        String  @db.VarChar(50)
+  type        String   @db.VarChar(50)
+  orders      orders[]
+}
+
+model orders {
+  id               Int      @id @default(autoincrement())
+  quantity         Int
+  createdAt        DateTime @default(now()) @db.Timestamp(6)
+  totalPrice       Int
+  totalCookingTime Int
+  clientId         Int
+  plateId          Int
+  clients          clients  @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plates           plates   @relation(fields: [plateId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
