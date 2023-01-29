@@ -52,10 +52,10 @@ async function postPlate(req: Request, res: Response): Promise<void> {
 
 async function updatePlate(req: Request, res: Response): Promise<void> {
   const newPlate = req.body as PlateInput;
-  const { id } = req.params;
+  const id = Number(req.params.id);
 
   try {
-    await platesServices.updatePlate(newPlate, Number(id));
+    await platesServices.updatePlate(newPlate, id);
     res.status(200).send("alterado com sucesso");
   } catch (err) {
     if (err.type === "conflict") {
@@ -70,10 +70,10 @@ async function updatePlate(req: Request, res: Response): Promise<void> {
 }
 
 async function deletePlate(req: Request, res: Response): Promise<void> {
-  const { id } = req.params;
+  const  id  = Number(req.params.id);
 
   try {
-    await platesServices.deletePlate(Number(id));
+    await platesServices.deletePlate(id);
     res.status(200).send("prato deletado");
   } catch (err) {
     if (err.type === "error_not_found") {

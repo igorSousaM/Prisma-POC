@@ -9,6 +9,6 @@ server.get("/health", (req: Request, res: Response) => {
   res.send("okay");
 });
 
-server.listen(4000, () => {
+server.listen(5000, () => {
   console.log("Server running on 4000 port");
 });
