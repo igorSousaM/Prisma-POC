@@ -22,19 +22,34 @@ async function findOneByName(name: string) {
   });
 }
 
-async function create(plate:PlateInput) {
+async function create(plate: PlateInput) {
   return prisma.plates.create({
-    data:{
+    data: {
+      ...plate,
+    },
+  });
+}
+
+async function update(plate: PlateInput,id:number) {
+  return prisma.plates.update({
+    where: {id},
+    data : {
       ...plate
     }
   })
+}
+
+async function deleteOne(id:number) {
+  
 }
 
 const platesRepository = {
   findMany,
   findOneById,
   findOneByName,
-  create
+  create,
+  update,
+  deleteOne
 };
 
 export default platesRepository;

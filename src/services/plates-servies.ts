@@ -20,17 +20,35 @@ async function getPlateById(id: number): Promise<plates> {
 }
 
 async function createPlate(plate: PlateInput) {
-  const plateFound = await platesRepository.findOneByName(plate.name)
+  const plateFound = await platesRepository.findOneByName(plate.name);
 
-  if(plateFound) throw conflictError();
-  
-  await platesRepository.create(plate)
+  if (plateFound) throw conflictError();
+
+  await platesRepository.create(plate);
+}
+
+async function updatePlate(plate: PlateInput, id: number) {
+  const plateFoundById = await platesRepository.findOneById(id);
+  if (!plateFoundById) throw notFoundError();
+
+  const plateFoundByName = await platesRepository.findOneByName(plate.name);
+  if (plateFoundByName) throw conflictError();
+
+  await platesRepository.update(plate, id);
+}
+
+async function deletePlate(id: number) {
+  const plateFoundById = await platesRepository.findOneById(id);
+  if (!plateFoundById) throw notFoundError();
+
+  await platesRepository.deleteOne(id);
 }
 
 const platesServices = {
   getPlates,
   getPlateById,
-  createPlate
+  createPlate,
+  updatePlate,
 };
 
 export default platesServices;

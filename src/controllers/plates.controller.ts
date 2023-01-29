@@ -34,14 +34,13 @@ async function getOnePlate(req: Request, res: Response): Promise<void> {
   }
 }
 
-async function postPlate(req: Request, res: Response) {
+async function postPlate(req: Request, res: Response): Promise<void> {
+  const newPlate = req.body as PlateInput;
 
-  const newPlate = req.body as PlateInput
-
-  try{
-    await platesServices.createPlate(newPlate)
-    res.status(201).send("prato criado")
-  }catch(err){
+  try {
+    await platesServices.createPlate(newPlate);
+    res.status(201).send("prato criado");
+  } catch (err) {
     if (err.type === "conflict") {
       res.sendStatus(409);
     } else {
@@ -51,4 +50,23 @@ async function postPlate(req: Request, res: Response) {
   }
 }
 
-export { getPlatesList, getOnePlate, postPlate };
+async function updatePlate(req: Request, res: Response) {
+  const newPlate = req.body as PlateInput;
+  const { id } = req.params;
+
+  try {
+    await platesServices.updatePlate(newPlate, Number(id));
+    res.status(200).send("alterado com sucesso");
+  } catch (err) {
+    if (err.type === "conflict") {
+      res.sendStatus(409);
+    } else if (err.type === "error_not_found") {
+      res.sendStatus(404);
+    } else {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+}
+
+export { getPlatesList, getOnePlate, postPlate, updatePlate };
