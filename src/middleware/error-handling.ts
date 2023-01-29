@@ -13,3 +13,10 @@ export function unauthorizedError(): ErrorHandling{
       message: "You must have authorization to continue",
     };
   }
+
+export function conflictError(): ErrorHandling{
+  return {
+    type: "conflict",
+    message:"Already have a plate with this data"
+  }
+}

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { PlateInput } from "../protocols/index.js";
 import platesServices from "../services/plates-servies.js";
 
 async function getPlatesList(req: Request, res: Response): Promise<void> {
@@ -17,7 +18,7 @@ async function getPlatesList(req: Request, res: Response): Promise<void> {
 }
 
 async function getOnePlate(req: Request, res: Response): Promise<void> {
-  const  id  = Number(req.params.id);
+  const id = Number(req.params.id);
 
   try {
     const plate = await platesServices.getPlateById(id);
@@ -33,4 +34,21 @@ async function getOnePlate(req: Request, res: Response): Promise<void> {
   }
 }
 
-export { getPlatesList, getOnePlate };
+async function postPlate(req: Request, res: Response) {
+
+  const newPlate = req.body as PlateInput
+
+  try{
+    await platesServices.createPlate(newPlate)
+    res.status(201).send("prato criado")
+  }catch(err){
+    if (err.type === "conflict") {
+      res.sendStatus(409);
+    } else {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+}
+
+export { getPlatesList, getOnePlate, postPlate };

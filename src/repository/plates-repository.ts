@@ -1,21 +1,40 @@
 import { plates } from "@prisma/client";
 import prisma from "../database/database.js";
+import { PlateInput } from "../protocols/index.js";
 
 async function findMany(): Promise<plates[]> {
   return prisma.plates.findMany();
 }
 
-async function findOne(id: number): Promise<plates> {
+async function findOneById(id: number): Promise<plates> {
   return prisma.plates.findFirst({
     where: {
-      id: id,
+      id,
     },
   });
 }
 
+async function findOneByName(name: string) {
+  return prisma.plates.findFirst({
+    where: {
+      name,
+    },
+  });
+}
+
+async function create(plate:PlateInput) {
+  return prisma.plates.create({
+    data:{
+      ...plate
+    }
+  })
+}
+
 const platesRepository = {
   findMany,
-  findOne,
+  findOneById,
+  findOneByName,
+  create
 };
 
 export default platesRepository;
