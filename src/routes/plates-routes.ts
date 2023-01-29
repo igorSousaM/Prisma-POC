@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deletePlate,
   getOnePlate,
   getPlatesList,
   postPlate,
@@ -14,6 +15,7 @@ platesRouter
   .get("/plates", getPlatesList)
   .get("/plates/:id", getOnePlate)
   .post("/plates", validateSchema(plateSchema), postPlate)
-  .patch("/plates/:id", validateSchema(plateSchema), updatePlate);
+  .patch("/plates/:id", validateSchema(plateSchema), updatePlate)
+  .delete("/plates/:id",deletePlate);
 
 export default platesRouter;

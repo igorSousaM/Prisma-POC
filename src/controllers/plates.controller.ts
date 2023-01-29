@@ -50,7 +50,7 @@ async function postPlate(req: Request, res: Response): Promise<void> {
   }
 }
 
-async function updatePlate(req: Request, res: Response) {
+async function updatePlate(req: Request, res: Response): Promise<void> {
   const newPlate = req.body as PlateInput;
   const { id } = req.params;
 
@@ -69,4 +69,20 @@ async function updatePlate(req: Request, res: Response) {
   }
 }
 
-export { getPlatesList, getOnePlate, postPlate, updatePlate };
+async function deletePlate(req: Request, res: Response): Promise<void> {
+  const { id } = req.params;
+
+  try {
+    await platesServices.deletePlate(Number(id));
+    res.status(200).send("prato deletado");
+  } catch (err) {
+    if (err.type === "error_not_found") {
+      res.sendStatus(404);
+    } else {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+}
+
+export { getPlatesList, getOnePlate, postPlate, updatePlate, deletePlate };

@@ -30,17 +30,19 @@ async function create(plate: PlateInput) {
   });
 }
 
-async function update(plate: PlateInput,id:number) {
+async function update(plate: PlateInput, id: number) {
   return prisma.plates.update({
-    where: {id},
-    data : {
-      ...plate
-    }
-  })
+    where: { id },
+    data: {
+      ...plate,
+    },
+  });
 }
 
-async function deleteOne(id:number) {
-  
+async function deleteOne(id: number) {
+  return prisma.plates.delete({
+    where: { id },
+  });
 }
 
 const platesRepository = {
@@ -49,7 +51,7 @@ const platesRepository = {
   findOneByName,
   create,
   update,
-  deleteOne
+  deleteOne,
 };
 
 export default platesRepository;

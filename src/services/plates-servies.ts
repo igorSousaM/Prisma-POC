@@ -49,6 +49,7 @@ const platesServices = {
   getPlateById,
   createPlate,
   updatePlate,
+  deletePlate
 };
 
 export default platesServices;
