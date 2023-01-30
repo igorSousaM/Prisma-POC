@@ -1,4 +1,4 @@
-import prisma from "../src/database/database";
+import prisma from "../src/database/database.js";
 
 async function main() {
   await prisma.plates.create({
