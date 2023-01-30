@@ -16,3 +16,9 @@ export type ClientInput = {
   phone: string;
   address: string;
 };
+
+export type OrderInput = {
+  quantity: number;
+  clientId: number;
+  plateId: number;
+};
